@@ -4,10 +4,20 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { query, onSnapshot, collection, getDocs, updateDoc, doc, addDoc } from "firebase/firestore"
 import {db} from "./firebase-config"
 import {useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
+import { UserAuth } from './context/AuthContext'
 const FirebaseCalendar = () => {
 
     const [data, setData] = useState([])
     const dataCollectionRef = collection(db, "dates")
+    const navigate = useNavigate()
+    const {user} = UserAuth()
+
+    useEffect(() => {
+        if(!user) {
+            navigate("/")
+        }
+    }, [user])
 
     useEffect(() => {
         const q = query(dataCollectionRef)
