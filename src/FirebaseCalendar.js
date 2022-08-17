@@ -1,15 +1,20 @@
 import FullCalender from '@fullcalendar/react'
-import dayGridPlugin from "@fullcalendar/daygrid"
-import interactionPlugin from '@fullcalendar/interaction'
 import { query, onSnapshot, collection, getDocs, updateDoc, doc, addDoc } from "firebase/firestore"
-import {db} from "./firebase-config"
+import {db} from "../firebase-config"
 import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserAuth } from './context/AuthContext'
+import { UserAuth } from '../context/AuthContext'
+import timeGridPlugin from '@fullcalendar/timegrid';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const FirebaseCalendar = () => {
 
+    const [newEvent, setNewEvent] = useState({tite: "", start: "", end: ""})
+    const [noMake, setNoMake ] = useState({tite: "", start: "", end: ""})
     const [data, setData] = useState([])
+    const [noData, setNoData] = useState([])
     const dataCollectionRef = collection(db, "dates")
+    const notAvailRef = collection(db,"nomake")
     const navigate = useNavigate()
     const {user} = UserAuth()
 
@@ -28,7 +33,7 @@ const FirebaseCalendar = () => {
                         id: doc.id,
                         title: doc.get("title"),
                         start:doc.get("start").toDate(),
-                        allDay:doc.get('allDay')
+                        end: doc.get("end").toDate()
                     }
                 });
                 setData([...array]);
@@ -37,27 +42,107 @@ const FirebaseCalendar = () => {
         return unsub
     }, [])
         
-
-    const handleDateClick = (e) => {
-        if(e.jsEvent.altKey) {
-            const title = prompt("Enter title", e.dateStr)
-            const test = prompt("just testing something")
-            const event = {
-                title: title ? title : e.dateStr,
-                start: e.date,
-                allDay: true
+    useEffect(() => {
+        const q = query(notAvailRef)
+        const unsub = onSnapshot(q,(snap) => {
+            if(snap.docs) {
+                const array = snap.docs.map(doc => {
+                    return {
+                        id: doc.id,
+                        title: doc.get("title"),
+                        start:doc.get("start").toDate(),
+                        end: doc.get("end").toDate()
+                    }
+                });
+                setNoData([...array]);
             }
+        })
+        return unsub
+    }, [])
+
+
+    const handleAddEvent = () => {
+        var name
+        var canCreate = true
+        var cantMake1
+        var cantMake2
+        var canMake = new Date(newEvent.start).valueOf()
+        noData.map((info) => {
+            cantMake1 = new Date(info.start).valueOf()
+            cantMake2 = new Date(info.end).valueOf()
+            if(canMake > cantMake1 && canMake < cantMake2) {
+                name = info.title
+                canCreate = false
+            }
+        })
+        if(canCreate === true) 
+        {
+            const event = {
+                title: newEvent.title,
+                start: newEvent.start,
+                end: newEvent.end,
+            } 
             addDoc(dataCollectionRef, event)
         }
+        else
+        {
+            window.alert("Event addition failed, " + name + " cant make the meeting")
+        }
+    
+    }
+
+
+    const handleNotAvail = () => {
+        const event = {
+            title: noMake.title,
+            start: noMake.start,
+            end: noMake.end
+        } 
+        addDoc(notAvailRef, event)
     }
 
     return (
+        
         <div>
-        <FullCalender 
-        events = {data}
-        plugins = {[dayGridPlugin, interactionPlugin]}
-        dateClick = {handleDateClick}
-        />
+            <FullCalender 
+            eventSources = {[data,noData]}
+            plugins = {[timeGridPlugin]}
+            displayEventEnd = {true}
+            />
+            <div>
+                <h3>Input Meeting Time</h3>
+                <input type = "text" placeholder = "Add Title..."
+                value = {newEvent.title} onChange = {(e) => setNewEvent({...newEvent, title: e.target.value})}/>
+                <DatePicker placeholderText="Start Date..."
+                selected={newEvent.start} 
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                onChange = {(start) => setNewEvent({...newEvent, start})}/>
+                <DatePicker placeholderText="End Date..."
+                selected={newEvent.end} onChange = {(end) => setNewEvent({...newEvent, end})}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}/>
+                <button onClick = {handleAddEvent}>Add Event</button>
+            </div>
+            <div>
+                <h3>Detail not Available time</h3>
+                <input type = "text" placeholder = "Name..."
+                value = {noMake.title} onChange = {(e) => setNoMake({...noMake, title: e.target.value})}/>
+                <DatePicker placeholderText="Start Date..."
+                selected={noMake.start} 
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                onChange = {(start) => setNoMake({...noMake, start})}/>
+                <DatePicker placeholderText="End Date..."
+                selected={noMake.end} onChange = {(end) => setNoMake({...noMake, end})}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}/>
+                <button onClick = {handleNotAvail}>Add Time</button>
+            </div>
         </div>
     )
 }
