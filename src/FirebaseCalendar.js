@@ -1,9 +1,9 @@
 import FullCalender from '@fullcalendar/react'
 import { query, onSnapshot, collection, getDocs, updateDoc, doc, addDoc } from "firebase/firestore"
-import {db} from "../firebase-config"
+import {db} from "./firebase-config"
 import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserAuth } from '../context/AuthContext'
+import { UserAuth } from './context/AuthContext'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
