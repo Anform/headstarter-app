@@ -1,55 +1,63 @@
 .Wrapper{
-    display:flex;
-    flex-direction: row;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
+  position: relative;
+  background-color: white !important;
+  display:flex;
+  flex-direction: row;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
 }
 
 .Sidebar{ 
-  height: 100vh;
+  background-color: #212529;
   width: 46%;
+  height: 100vh;
   position: relative;
   overflow: hidden;
 }
 
 .Background{
+  min-height: 100vh;
   object-fit: fill;
 }
 
 .Body{
     display: flex;
+    flex-direction: column;
     text-align: center;
     flex-grow: 1;
+    align-items: center;
     justify-content: center;
-    align-self: center;
+    align-content: center;
     height: 100%;
 }
  
 #bootstrap-overrides .Card {
-    background-color: rgba(248, 196, 149, 0.4);
+    z-index: 100;
+    background-color: #fce7d4;
     padding: 30px 0px 0;
     margin: 0;
     height: 100%;
-    width: 375px;
+    width: 400px;
     border-radius: 30px;
     border: none;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .Card-Header{
+    padding-top: 20px;
     padding-left: 30px;
 }
 .Card h2{
     text-align: center;
     margin-bottom: 4px;
-    
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 19px;
+    font-size: 20px;
+    line-height: 15px;
     color: #5A4542;
 }
 
@@ -64,7 +72,7 @@
 }
 
 .Form > * {
-    margin-top: 20px;
+    margin-top: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,9 +83,8 @@
   }
 
   #bootstrap-overrides .input-group-text{
-    max-width: 40.25px;
+    width: 12%;
     background-color: white;
-    margin-bottom: 2rem;
     border-right: none;
     height: 50px;
     border: 1px solid #EEEEEE;
@@ -138,7 +145,8 @@
     touch-action: manipulation;
     vertical-align: baseline;
     height: 50px;
-    width: 82%;    
+    width: 82%;   
+    margin-top: 14px; 
     margin-bottom: 10px;
   }
   
@@ -159,7 +167,7 @@
     
  .Link{
     font-family: 'Inter';
-    margin: 1rem;
+    margin: 14px;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -169,5 +177,39 @@
 
   .auth-icon{
     opacity: 30%;
+  }
+
+  .ellipse-1{
+    position: relative;
+    top: -30px;   
+    left: 120px;
+  }
+
+  .ellipseContainer{}
+
+  .ellipse-2{
+    position: absolute;
+    bottom: -72px ;
+    left: 0px;
+  }
+
+  .Logo{
+    font-family: 'Roboto Flex';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 38px;
+    color: #5A4542;
+    text-align:start;
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+
+  .Header{
+    height: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
   

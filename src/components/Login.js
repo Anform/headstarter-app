@@ -7,7 +7,8 @@ import './auth.css'
 import LoginBackground from './assets/login-background.png'
 import {ReactComponent as EmailIcon} from './assets/email-icon.svg'
 import {ReactComponent as LockIcon} from './assets/lock-icon.svg'
-
+import {ReactComponent as Ellipse} from './assets/ellipse.svg'
+import {ReactComponent as Ellipse2} from './assets/ellipse-2.svg'
 
 export default function Login() {
   const emailRef = useRef()
@@ -45,7 +46,7 @@ export default function Login() {
 
   useEffect(() => {
     if(user != null) {
-        navigate("/calender")
+        navigate("/calendar")
     }
   }, [user])
 
@@ -53,6 +54,11 @@ export default function Login() {
     <div className= "Wrapper"> 
 
     <div className= "Body" id="bootstrap-overrides">
+     <div className='Header'>
+      <h1 className="Logo">Team<br></br>Tracker</h1>
+      <Ellipse className='ellipse-1'/>
+    </div> 
+
     <Card className ="Card">
         <Card.Body className ="Card-Body">
             <div className = "Card-Header">
@@ -88,7 +94,11 @@ export default function Login() {
             </Form>
         </Card.Body>
         </Card>
+
+        <div className='ellipseContainer'>
+        <Ellipse2 className='ellipse-2'/>
         </div>
+      </div>
 
       <div className="Sidebar">
         <img className='Background' src={LoginBackground} >

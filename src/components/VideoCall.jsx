@@ -1,11 +1,21 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 import './videocall.css'
+import { UserAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 function VideoCall() {
   const zoomIDRef = useRef(null);
   const zoomPWRef = useRef(null);
   const client = ZoomMtgEmbedded.createClient();
+  const navigate = useNavigate()
+  const {user} = UserAuth()
+
+  useEffect(() => {
+    if(!user) {
+        navigate("/")
+    }
+  }, [user])
 
   // setup your signature endpoint here: https://github.com/zoom/meetingsdk-sample-signature-node.js
   var signatureEndpoint = 'https://headstarter-group-zoom-sign.herokuapp.com/'

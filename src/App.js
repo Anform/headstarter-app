@@ -7,17 +7,18 @@ import Contact from "./components/Contact";
 import { AuthContextProvider } from "./context/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './App.css'
 
 function App() {
   return (
     <AuthContextProvider>
       <Router>
-      <Navbar/>
-        <Routes>
-          <Route path="/" element={<Login/>}/>
-          <Route path="/calender" element={<FirebaseCalendar/>}/>
-          <Route path="/videocall" element={<VideoCall/>}/>
+          <Routes>
+            <Route path="/" element={<Login/>}/>
+            <Route element= {<Navbar/>}>
+              <Route path="/calendar" element={<FirebaseCalendar/>}/>
+              <Route path="/videocall" element={<VideoCall/>}/>
+            </Route>
         </Routes>
       </Router>
     </AuthContextProvider>
