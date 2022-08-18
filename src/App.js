@@ -5,7 +5,6 @@ import Signup from "./components/Signup"
 import ForgotPassword from "./components/ForgotPassword";
 import Navbar from "./components/Navbar" 
 import VideoCall from "./components/VideoCall";
-import Contact from "./components/Contact";
 import { AuthContextProvider } from "./context/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css';
