@@ -1,0 +1,173 @@
+.Wrapper{
+    display:flex;
+    flex-direction: row;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.Sidebar{ 
+  height: 100vh;
+  width: 46%;
+  position: relative;
+  overflow: hidden;
+}
+
+.Background{
+  object-fit: fill;
+}
+
+.Body{
+    display: flex;
+    text-align: center;
+    flex-grow: 1;
+    justify-content: center;
+    align-self: center;
+    height: 100%;
+}
+ 
+#bootstrap-overrides .Card {
+    background-color: rgba(248, 196, 149, 0.4);
+    padding: 30px 0px 0;
+    margin: 0;
+    height: 100%;
+    width: 375px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.Card-Header{
+    padding-left: 30px;
+}
+.Card h2{
+    text-align: center;
+    margin-bottom: 4px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 19px;
+    color: #5A4542;
+}
+
+.Card h3{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 12px;
+
+    color: #5A4542;
+}
+
+.Form > * {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #bootstrap-overrides .input-group{
+    height: 50px;
+  }
+
+  #bootstrap-overrides .input-group-text{
+    max-width: 40.25px;
+    background-color: white;
+    margin-bottom: 2rem;
+    border-right: none;
+    height: 50px;
+    border: 1px solid #EEEEEE;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+
+  #bootstrap-overrides .form-control {
+    flex: none;
+    outline: none;
+    background: #FFFFFF;
+    border: 1px solid #EEEEEE;
+    height: 50px;
+    width: 70%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-left: none;
+  }
+
+  #bootstrap-overrides .form-control::placeholder {
+    color: #273240;
+    opacity: 0.3;
+  }
+  
+  #bootstrap-overrides .form-control:focus{
+    color: #212529;
+    outline: 0;
+    box-shadow: none;
+  }
+  
+  #bootstrap-overrides .button {
+    align-self: center;
+    background-color: #ffa511;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 29px;
+    justify-content: center;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    height: 50px;
+    width: 82%;    
+    margin-bottom: 10px;
+  }
+  
+  #bootstrap-overrides .button:hover,
+  .button:focus {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  
+  #bootstrap-overrides .button:active {
+    background-color: #F0F0F1;
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    color: rgba(0, 0, 0, 0.65);
+    transform: translateY(0);
+  }
+    
+ .Link{
+    font-family: 'Inter';
+    margin: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  .auth-icon{
+    opacity: 30%;
+  }
+  

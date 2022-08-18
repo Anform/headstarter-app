@@ -6,13 +6,14 @@ import VideoCall from "./components/VideoCall";
 import Contact from "./components/Contact";
 import { AuthContextProvider } from "./context/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
   return (
     <AuthContextProvider>
       <Router>
-        <Navbar />
+      <Navbar/>
         <Routes>
           <Route path="/" element={<Login/>}/>
           <Route path="/calender" element={<FirebaseCalendar/>}/>
