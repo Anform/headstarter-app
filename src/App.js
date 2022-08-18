@@ -1,6 +1,8 @@
 import React from "react"
 import FirebaseCalendar from "./FirebaseCalendar";
 import Login from "./components/Login"  
+import Signup from "./components/Signup"
+import ForgotPassword from "./components/ForgotPassword";
 import Navbar from "./components/Navbar" 
 import VideoCall from "./components/VideoCall";
 import Contact from "./components/Contact";
@@ -15,6 +17,8 @@ function App() {
       <Router>
           <Routes>
             <Route path="/" element={<Login/>}/>
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route element= {<Navbar/>}>
               <Route path="/calendar" element={<FirebaseCalendar/>}/>
               <Route path="/videocall" element={<VideoCall/>}/>
