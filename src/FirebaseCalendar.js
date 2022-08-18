@@ -7,6 +7,8 @@ import { UserAuth } from './context/AuthContext'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./calendar.css"
+
 const FirebaseCalendar = () => {
 
     const [newEvent, setNewEvent] = useState({tite: "", start: "", end: ""})
@@ -103,14 +105,17 @@ const FirebaseCalendar = () => {
 
     return (
         
-        <div>
-            <FullCalender 
+        <div className='wrapper'>
+            <div className='calendar'> <h5>Calendar</h5>
+            <FullCalender
             eventSources = {[data,noData]}
             plugins = {[timeGridPlugin]}
             displayEventEnd = {true}
             />
-            <div>
-                <h3>Input Meeting Time</h3>
+            </div>
+            <div className='button-area'>
+            <div className='buttons'>
+                <h5>Input Meeting Time</h5>
                 <input type = "text" placeholder = "Add Title..."
                 value = {newEvent.title} onChange = {(e) => setNewEvent({...newEvent, title: e.target.value})}/>
                 <DatePicker placeholderText="Start Date..."
@@ -124,11 +129,11 @@ const FirebaseCalendar = () => {
                 showTimeSelect
                 timeFormat="HH:mm"
                 timeIntervals={15}/>
-                <button onClick = {handleAddEvent}>Add Event</button>
+                <button className="btn-add" onClick = {handleAddEvent}>Add Event</button>
             </div>
-            <div>
-                <h3>Detail not Available time</h3>
-                <input type = "text" placeholder = "Name..."
+            <div className='buttons'>
+                <h5>Detail Not Available Time</h5>
+                <input type = "text" placeholder = "Add Name..."
                 value = {noMake.title} onChange = {(e) => setNoMake({...noMake, title: e.target.value})}/>
                 <DatePicker placeholderText="Start Date..."
                 selected={noMake.start} 
@@ -141,9 +146,10 @@ const FirebaseCalendar = () => {
                 showTimeSelect
                 timeFormat="HH:mm"
                 timeIntervals={15}/>
-                <button onClick = {handleNotAvail}>Add Time</button>
+                <button className="btn-add" onClick = {handleNotAvail}>Add Time</button>
             </div>
         </div>
+    </div>
     )
 }
 
