@@ -18,16 +18,16 @@ export default function Navbar() {
   }
   
     function Profile(){
-      const [showProfile, setShowProfile] = useState(false);
+      const [hideProfile, setHideProfile] = useState(true);
 
         return <>
       <div className="profile-parent" onClick={
         ()=>{
-            if(showProfile === false){
-              setShowProfile(true)
+            if(hideProfile === false){
+              setHideProfile(true)
             }
             else{
-              setShowProfile(false)
+              setHideProfile(false)
             }
           }
         }>
@@ -40,7 +40,7 @@ export default function Navbar() {
         </div> 
       </div>
         
-        <ul className="nav-user-menu" hidden={showProfile}>
+        <ul className="nav-user-menu" hidden={hideProfile}>
              <div className='nav-user-header'> Signed in as <i>{user.displayName || user.email}</i></div> 
             {/* <li className="nav-user-item">
                 <a href="/profile"> Profile </a>
