@@ -8,6 +8,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./calendar.css"
+import VideoCall from './components/VideoCall'
 
 const FirebaseCalendar = () => {
 
@@ -107,6 +108,7 @@ const FirebaseCalendar = () => {
     return (
         
         <div className='wrapper'>
+            <VideoCall/>
             <div className='calendar'> <h5>Calendar</h5>
             <FullCalender
             eventSources = {[data,noData]}

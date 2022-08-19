@@ -1,8 +1,13 @@
 .wrapper{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center; 
+    height: 100%;
+}
+
+.fc .fc-view-harness{
+    border: 1px solid var(--fc-border-color, #A1B3D9);
 }
 
 .fc{
@@ -12,6 +17,9 @@
 
 .fc .fc-toolbar.fc-header-toolbar{
     padding: 1rem;
+    border: 1px solid var(--fc-border-color, #A1B3D9);
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 .fc .fc-button-primary{
@@ -30,6 +38,7 @@
     display: flex;
     align-items: center;
     text-align: center;
+    padding-left: 4rem;
 }
 
 .fc .fc-col-header-cell-cushion {
@@ -52,6 +61,10 @@
     flex-shrink: 1;
 }
 
+.fc-theme-standard td, .fc-theme-standard th{
+    border: 1px solid var(--fc-border-color, #A1B3D9)
+}
+
 .calendar{
     font-family: 'Inter';
     color: #5A4542;
@@ -69,16 +82,20 @@
 .calendar h5{
     color: #707070;
     margin: 0px;
+    padding-bottom: 1rem;
 }
 
 .buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
     text-align: center;
-    margin-top:2rem;
+    margin-bottom:1.5rem;
     padding: 1rem;
     border-radius: 30px;
     background: rgba(255, 255, 255, 0.75);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    width: 300px;
+    height: 280px;
 }
 
 .buttons h5{
@@ -90,6 +107,8 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .button-area input{

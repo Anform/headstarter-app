@@ -95,22 +95,16 @@ function VideoCall() {
   return (
     <div className="App">
       <main>
-        <h1>Join a Zoom Meeting</h1>
         {/* For Component View */}
         <div id="meetingSDKElement">
           {/* Zoom Meeting SDK Component View Rendered Here */}
         </div>
-        <div>
-          <form>
-            <label>
-              Zoom ID:
+        <div className='call-button-area'>
+          <form className='call-buttons'>
+          <h5>Join a Zoom Meeting</h5>
              <input type="text" placeholder='Enter Zoom ID' ref={zoomIDRef} required/>
-            </label>
-            <label>
-              Meeting Password:
              <input type="text" placeholder='Enter Password' ref={zoomPWRef} required/>
-            </label>
-            <input type="submit" onClick={getSignature} value="Join Meeting" />
+            <input className="btn-add" type="submit" onClick={getSignature} value="Join Meeting" />
           </form>
         </div>
       </main>

@@ -2,3 +2,9 @@ Body{
     background: linear-gradient(180deg, #FF8946 0%, #FFD0A9 28.65%, #FFFFFF 100%);
     font-family: 'Inter';
 }
+
+.dashboard{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
