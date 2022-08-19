@@ -57,7 +57,7 @@ export default function Contact() {
     <form className="navButton" ref={form} onSubmit={(e) => {e.preventDefault(); setModalShow(true);}}>
       <input type="hidden" name="to_name" value={user.displayName} />
       <input type="hidden" name="user_email" value={user.email} />
-      <button class="btn" type="submit" value="Send Email"> <div className="btn-Container"><Notification/> <i>Notifications</i></div></button>
+      <button class="btn" type="submit" value="Send Email"> <div className="btn-Container"><Notification className='nav-btn-icon'/> <i>Notifications</i></div></button>
     </form>
     </>
 

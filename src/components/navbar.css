@@ -20,9 +20,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  }
-
-  .navButtons *{
+    margin-right:.35rem;
   }
 
   .navButton{
@@ -45,6 +43,21 @@
     font-weight: 500;
     font-size: 10px;
     line-height: 10px;
-    /* identical to box height, or 100% */
     letter-spacing: 0.5px;
-    color: #382212;  }
+    color: #382212;  
+    margin-top: 4px;
+  }
+
+  .navButton .btn{
+    opacity: 0.7;
+    border: none;
+  }
+
+  .navButton .btn:hover{
+    opacity: 1;
+  }
+
+  .nav-btn-icon{
+    width: 40px;
+    height: 40px;
+  }
