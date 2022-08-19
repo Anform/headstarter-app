@@ -23,7 +23,7 @@ function VideoCall() {
   var sdkKey = 'Hg458B5SMFNbxhjMIOSsUivexrqX8C3Fssx1'
   var meetingNumber = ''
   var role = 0
-  var userName = 'React'
+  var userName = ''
   var userEmail = ''
   var passWord = ''
   // pass in the registrant's token if your meeting or webinar requires registration. More info here:
@@ -35,6 +35,12 @@ function VideoCall() {
     e.preventDefault();
     meetingNumber = zoomIDRef.current.value;
     passWord = zoomPWRef.current.value;
+    if ('displayName' in user){
+      userName = user.displayName;
+    }
+    else{
+      userName = user.email;
+    }
 
     fetch(signatureEndpoint, {
       method: 'POST',

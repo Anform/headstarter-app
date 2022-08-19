@@ -6,7 +6,7 @@
 }
 
 .fc{
-    width: 500px;
+    width: 600px;
     padding-bottom: 1rem;
 }
 
@@ -35,6 +35,22 @@
 .fc .fc-col-header-cell-cushion {
     color: #5A4542;
 }
+.fc-timegrid-event .fc-event-main{
+    text-align: center;
+    font-weight: 300;
+}
+
+.fc-timegrid-event .fc-event-time{
+    display: flex;
+    overflow: hidden;
+    white-space: initial;
+}
+
+.fc-v-event .fc-event-main-frame{
+    box-shadow: none;
+    display:flex;
+    flex-shrink: 1;
+}
 
 .calendar{
     font-family: 'Inter';
@@ -47,7 +63,7 @@
     background: rgba(255, 255, 255, 0.75);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     height: 100%;
-    width: 500px;
+    width: 600px;
 }
 
 .calendar h5{

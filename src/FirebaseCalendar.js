@@ -53,7 +53,8 @@ const FirebaseCalendar = () => {
                         id: doc.id,
                         title: doc.get("title"),
                         start:doc.get("start").toDate(),
-                        end: doc.get("end").toDate()
+                        end: doc.get("end").toDate(),
+                        backgroundColor: '#A52A2A'
                     }
                 });
                 setNoData([...array]);
