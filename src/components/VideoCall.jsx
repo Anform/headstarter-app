@@ -104,7 +104,7 @@ function VideoCall() {
           <h5>Join a Zoom Meeting</h5>
              <input type="text" placeholder='Enter Zoom ID' ref={zoomIDRef} required/>
              <input type="text" placeholder='Enter Password' ref={zoomPWRef} required/>
-            <input className="btn-add" type="submit" onClick={getSignature} value="Join Meeting" />
+            <button className="btn-add" type="submit" onClick={getSignature}>Join Meeting </button>
           </form>
         </div>
       </main>

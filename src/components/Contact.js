@@ -1,11 +1,40 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser';
 import { UserAuth } from '../context/AuthContext';
+import {ReactComponent as Notification} from './assets/bell-icon.svg'
+import { Button, Modal } from 'react-bootstrap'
+import './navbar.css'
 
 export default function Contact() {
-  
   const form = useRef();
   const { user } = UserAuth()
+  const [modalShow, setModalShow] = React.useState(false);
+
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Would you like to notify for an upcoming meeting?
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h5>Notify your group about a meeting. </h5>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button variant="danger" onClick={props.onHide}>Cancel</Button>
+        <Button variant="primary" onClick={sendEmail}>
+              Notify
+        </Button>
+      </Modal.Footer>
+        </Modal>
+    );
+  }
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -19,10 +48,18 @@ export default function Contact() {
   };
 
   return (
-    <form ref={form} onSubmit={sendEmail}>
+    <>
+    <MyVerticallyCenteredModal
+    show={modalShow}
+    onHide={() => setModalShow(false)
+    }/>
+    
+    <form className="navButton" ref={form} onSubmit={(e) => {e.preventDefault(); setModalShow(true);}}>
       <input type="hidden" name="to_name" value={user.displayName} />
       <input type="hidden" name="user_email" value={user.email} />
-      <input type="submit" value="Send Email" />
+      <button class="btn" type="submit" value="Send Email"> <div className="btn-Container"><Notification/> <i>Notifications</i></div></button>
     </form>
+    </>
+
   );
 }

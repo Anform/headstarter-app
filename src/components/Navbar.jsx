@@ -23,8 +23,10 @@ export default function Navbar() {
     <nav class="navbar bg-transparent">
         <div class="container-fluid">
             <h1 className="Logo">Team<br></br>Tracker</h1>
+            <div className='navButtons'>
             {user ? <Contact/> : "" }
             {user ? <button onClick={handleSignOut}>Logout</button> : "" }
+            </div>
         </div>
     </nav>
     <Outlet />
