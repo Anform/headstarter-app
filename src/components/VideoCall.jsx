@@ -81,11 +81,12 @@ function VideoCall() {
         headers: { 'Content-Type': 'application/json' },
       }).then(res => res.json().then((object)=> {
         console.log(object)
+        zakToken = object.token;
       }))
       .catch(error => {
         console.error(error)
       })
-      // createMeeting(response.signature)
+      createMeeting(response.signature)
     }).catch(error => {
       console.error(error)
     })
