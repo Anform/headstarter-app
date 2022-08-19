@@ -3,6 +3,7 @@ import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 import './videocall.css'
 import { UserAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { ModalDialog } from 'react-bootstrap';
 
 function VideoCall() {
   const zoomIDRef = useRef(null);
@@ -35,12 +36,8 @@ function VideoCall() {
     e.preventDefault();
     meetingNumber = zoomIDRef.current.value;
     passWord = zoomPWRef.current.value;
-    if ('displayName' in user){
-      userName = user.displayName;
-    }
-    else{
-      userName = user.email;
-    }
+    userName = user.displayName || user.email;
+
 
     fetch(signatureEndpoint, {
       method: 'POST',
@@ -79,7 +76,7 @@ function VideoCall() {
           ]
         }
       }
-    });
+    })
 
     client.join({
     	sdkKey: sdkKey,

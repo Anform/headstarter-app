@@ -39,8 +39,8 @@ export default function ForgotPassword() {
             {message && <Alert variant = "success">{message}</Alert>}
             <Form onSubmit ={handleSubmit}>
             <Form.Group id = "email">
-                    <div class="input-group justify-content-center">
-                    <span class="input-group-text" id="basic-addon1"><EmailIcon className="auth-icon"/></span>
+                    <div className="input-group justify-content-center">
+                    <span className="input-group-text" id="basic-addon1"><EmailIcon className="auth-icon"/></span>
                     <Form.Control type="email" ref={emailRef} placeholder="Enter an email address" required/>
                     </div>
                 </Form.Group>

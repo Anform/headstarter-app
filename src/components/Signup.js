@@ -62,20 +62,20 @@ export default function Signup() {
             {error && <Alert variant = "danger">{error}</Alert>}
             <Form className = "Form" onSubmit ={handleSubmit}>
                 <Form.Group id = "email">
-                    <div class="input-group justify-content-center">
-                    <span class="input-group-text" id="basic-addon1"><EmailIcon className="auth-icon"/></span>
+                    <div className="input-group justify-content-center">
+                    <span className="input-group-text" id="basic-addon1"><EmailIcon className="auth-icon"/></span>
                     <Form.Control type="email" ref={emailRef} placeholder="Enter an email address" required/>
                     </div>
                 </Form.Group>
                 <Form.Group id = "password">
-                    <div class="input-group justify-content-center">
-                    <span class="input-group-text" id="basic-addon1"> <LockIcon className="auth-icon"/> </span>
+                    <div className="input-group justify-content-center">
+                    <span className="input-group-text" id="basic-addon1"> <LockIcon className="auth-icon"/> </span>
                     <Form.Control type="password" ref={passwordRef} placeholder="Enter a password" required/>
                     </div>
                 </Form.Group>
                 <Form.Group id = "password-confirm">
-                    <div class="input-group justify-content-center">
-                    <span class="input-group-text" id="basic-addon1"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#c6c9cc" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <div className="input-group justify-content-center">
+                    <span className="input-group-text" id="basic-addon1"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#c6c9cc" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
                       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                     </svg> </span>
                     <Form.Control type="password" ref={passwordConfirmRef} placeholder="Confirm password" required/>

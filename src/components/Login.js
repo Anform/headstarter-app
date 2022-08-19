@@ -66,21 +66,21 @@ export default function Login() {
             <h3 className ="text-start mb-4"> Sign in to keep track of your team tasks!</h3>
             </div>
             {error && <Alert variant = "danger">{error}</Alert>}
-            <div class="d-flex justify-content-center">
+            <div className="d-flex justify-content-center">
               <GoogleButton onClick={handleGoogleSignIn} style={{color:"grey", textAlign:"start",width:"82%", borderRadius:"30px", fontFamily: 'Inter', fontStyle:'normal', backgroundColor: "white" ,overflow:'hidden', boxShadow:"none"}}/>
             </div>
               <hr className="hrdivider">
                 </hr>
             <Form className = "Form" onSubmit ={handleSubmit}>
                 <Form.Group id = "email">
-                    <div class="input-group justify-content-center">
-                    <span class="input-group-text" id="basic-addon1"><EmailIcon className="auth-icon"/></span>
+                    <div className="input-group justify-content-center">
+                    <span className="input-group-text" id="basic-addon1"><EmailIcon className="auth-icon"/></span>
                     <Form.Control type="email" ref={emailRef} placeholder="Email address" required/>
                     </div>
                 </Form.Group>
                 <Form.Group id = "password">
-                    <div class="input-group justify-content-center">
-                    <span class="input-group-text" id="basic-addon1"> <LockIcon className="auth-icon"/> </span>
+                    <div className="input-group justify-content-center">
+                    <span className="input-group-text" id="basic-addon1"> <LockIcon className="auth-icon"/> </span>
                     <Form.Control type="password" ref={passwordRef} placeholder="Password" required/>
                     </div>
                 </Form.Group>
