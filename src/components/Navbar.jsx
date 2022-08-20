@@ -62,7 +62,7 @@ export default function Navbar() {
     <>
     <nav className="navbar bg-transparent">
         <div className="container-fluid">
-            <h1 className="Logo">Team<br></br>Tracker</h1>
+            <a href='/calendar' style={{textDecoration: "none"}}><h1 className="Logo">Team<br></br>Tracker</h1></a>
             <div className='navButtons'>
             {user ? <Contact/> : "" }
             {user ? <Profile/> : "" }
