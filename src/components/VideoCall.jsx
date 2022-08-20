@@ -2,8 +2,10 @@ import React, {useRef, useEffect} from 'react';
 import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 import './videocall.css'
 import { UserAuth } from '../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { ModalDialog } from 'react-bootstrap';
+import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 
 function VideoCall() {
   const zoomIDRef = useRef(null);
@@ -11,6 +13,7 @@ function VideoCall() {
   const client = ZoomMtgEmbedded.createClient();
   const navigate = useNavigate()
   const {user} = UserAuth()
+  const location = useLocation();
 
   useEffect(() => {
     if(!user) {
@@ -35,6 +38,22 @@ function VideoCall() {
   var password = ''
   var token = ''
   var zakToken = ''
+  var redirectLink = 'https://zoom.us/oauth/authorize?response_type=code&client_id=PnIseBlsS8KzyhYDz3o_vQ&redirect_uri=http://localhost:3000/calendar'
+  var code = null
+  
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    code = urlParams.get('code');
+
+    if(code !== null){
+      console.log('Code: ' + code);
+      if(window.confirm("Create a meeting?")){
+        getToken(code)
+      }
+    }
+
+  }, [location]);
+
 
   function getSignature(e) {
     e.preventDefault();
@@ -55,74 +74,6 @@ function VideoCall() {
       startMeeting(response.signature)
     }).catch(error => {
       console.error(error)
-    })
-  }
-
-  function createSignature() {
-    meetingNumber = zoomIDRef.current.value;
-    passWord = zoomPWRef.current.value;
-    userName = user.displayName || user.email;
-
-    fetch(endPoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        meetingNumber: meetingNumber,
-        role: role
-      })
-    }).then(res => res.json())
-    .then(response => {
-
-      fetch('http://localhost:4000/get-zak', {
-        method: 'POST',
-        body: JSON.stringify({
-          token: token
-        }),
-        headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json().then((object)=> {
-        console.log(object)
-        zakToken = object.token;
-      }))
-      .catch(error => {
-        console.error(error)
-      })
-      createMeeting(response.signature)
-    }).catch(error => {
-      console.error(error)
-    })
-  }
-
-  function getToken(e) {
-    e.preventDefault();
-
-    fetch(endPoint + 'create-token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    }).then(res => res.json().then((object)=> {
-      token = object.access_token
-    }))
-    .catch(error => {
-      console.error(error)
-    }).then(()=> {
-      
-      topic = 'This is a test meeting';
-      password = 'abc123';
-
-      fetch(endPoint + 'create-meeting', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          topic: topic,
-          password: password,
-          token: token
-        })
-      }).then(res => res.json().then ((object)=> {
-        console.log(object);
-        zoomIDRef.current.value = object.id;
-        zoomPWRef.current.value = object.password;
-      })).then(()=> {
-        createSignature();
-      })
     })
   }
 
@@ -155,13 +106,87 @@ function VideoCall() {
     	meetingNumber: meetingNumber,
     	password: passWord,
     	userName: userName,
-      userEmail: userEmail,
       tk: registrantToken
+    })
+  }
+
+  function getToken(code) {
+    fetch("http://localhost:4000/" + 'create-token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code: code,
+      }),
+    }).then(res => res.json().then((object)=> {
+      console.log(object)
+      token = object.access_token
+    }))
+    .catch(error => {
+      toast.error(error);
+      console.error(error)
+    }).then(()=> {
+      topic = 'This is a test meeting';
+      password = 'abc123';
+
+      fetch(endPoint + 'create-meeting', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic: topic,
+          password: password,
+          token: token
+        })
+      }).then(res => res.json().then ((object)=> {
+        console.log(object);
+        zoomIDRef.current.value = object.id;
+        zoomPWRef.current.value = object.password;
+      })).then(()=> {
+        createSignature();
+      })
+    })
+  }
+
+  function createSignature() {
+    meetingNumber = zoomIDRef.current.value;
+    passWord = zoomPWRef.current.value;
+    userName = user.displayName || user.email;
+
+    fetch(endPoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        meetingNumber: meetingNumber,
+        role: 1
+      })
+    }).then(res => res.json())
+    .then(response => {
+      fetch('http://localhost:4000/get-zak', {
+        method: 'POST',
+        body: JSON.stringify({
+          token: token
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      }).then(res => res.json().then((object)=> {
+        console.log(object.token)
+        zakToken = object.token;
+      }))
+      .catch(error => {
+        toast.error(error);
+        console.error(error)
+      })
+      createMeeting(response.signature)
+    }).catch(error => {
+      toast.error(error);
+      console.error(error)
     })
   }
 
   function createMeeting(signature){
     let meetingSDKElement = document.getElementById('meetingSDKElement');
+    
+    meetingNumber = zoomIDRef.current.value;
+    passWord = zoomPWRef.current.value;
+    userName = user.displayName || user.email;
 
     client.init({
       debug: true,
@@ -189,7 +214,6 @@ function VideoCall() {
     	meetingNumber: meetingNumber,
     	password: passWord,
     	userName: userName,
-      userEmail: userEmail,
       zak: zakToken
     })
 
@@ -205,7 +229,7 @@ function VideoCall() {
 
         <div className='call-button-area'>
           <form className='call-buttons'>
-            <button className="btn-add" type="submit" onClick={getToken}> Create Meeting </button>
+            <a className="btn-add" href={redirectLink} style={{textDecoration:"none"}} > Create Meeting </a>
           </form>
         </div>
 

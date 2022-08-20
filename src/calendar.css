@@ -4,6 +4,7 @@
     justify-content: space-around;
     align-items: center; 
     height: 100%;
+    position:relative;
 }
 
 .fc .fc-view-harness{
@@ -13,6 +14,7 @@
 .fc{
     width: 600px;
     padding-bottom: 1rem;
+    position: relative;
 }
 
 .fc .fc-toolbar.fc-header-toolbar{

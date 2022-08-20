@@ -9,10 +9,12 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <AuthContextProvider>
+    <Toaster />
       <Router>
           <Routes>
             <Route path="/" element={<Login/>}/>
