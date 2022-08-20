@@ -111,7 +111,7 @@ function VideoCall() {
   }
 
   function getToken(code) {
-    fetch("http://localhost:4000/" + 'create-token', {
+    fetch(endPoint + 'create-token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -138,6 +138,7 @@ function VideoCall() {
         })
       }).then(res => res.json().then ((object)=> {
         console.log(object);
+        userName = object.host_email;
         zoomIDRef.current.value = object.id;
         zoomPWRef.current.value = object.password;
       })).then(()=> {
@@ -147,20 +148,16 @@ function VideoCall() {
   }
 
   function createSignature() {
-    meetingNumber = zoomIDRef.current.value;
-    passWord = zoomPWRef.current.value;
-    userName = user.displayName || user.email;
-
     fetch(endPoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        meetingNumber: meetingNumber,
+        meetingNumber: zoomIDRef.current.value,
         role: 1
       })
     }).then(res => res.json())
     .then(response => {
-      fetch('http://localhost:4000/get-zak', {
+      fetch(endPoint + 'get-zak', {
         method: 'POST',
         body: JSON.stringify({
           token: token
@@ -185,8 +182,8 @@ function VideoCall() {
     let meetingSDKElement = document.getElementById('meetingSDKElement');
     
     meetingNumber = zoomIDRef.current.value;
+    console.log(meetingNumber);
     passWord = zoomPWRef.current.value;
-    userName = user.displayName || user.email;
 
     client.init({
       debug: true,
@@ -214,9 +211,17 @@ function VideoCall() {
     	meetingNumber: meetingNumber,
     	password: passWord,
     	userName: userName,
-      zak: zakToken
-    })
-
+      tk: registrantToken,
+      zak: zakToken,
+      success: (success) => {
+        console.log(success)
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    }).catch(e => {
+      console.log(e);
+  });
   }
 
   return (
