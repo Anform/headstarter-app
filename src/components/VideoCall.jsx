@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 import './videocall.css'
 import { UserAuth } from '../context/AuthContext'
@@ -39,20 +39,18 @@ function VideoCall() {
   var token = ''
   var zakToken = ''
   var redirectLink = 'https://zoom.us/oauth/authorize?response_type=code&client_id=PnIseBlsS8KzyhYDz3o_vQ&redirect_uri=http://localhost:3000/calendar'
-  var code = null
   
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    code = urlParams.get('code');
-
-    if(code !== null){
-      console.log('Code: ' + code);
+    const code = urlParams.get('code');
+    if(code !== ''){
+      console.log(code);
       if(window.confirm("Create a meeting?")){
-        getToken(code)
+        getToken(code);
       }
     }
+  }, []);
 
-  }, [location]);
 
 
   function getSignature(e) {
