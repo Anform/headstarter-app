@@ -3,17 +3,20 @@ import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 import './videocall.css'
 import { UserAuth } from '../context/AuthContext'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { ModalDialog } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap'
 import toast from 'react-hot-toast';
 // import toast from 'react-hot-toast';
 
 function VideoCall() {
   const zoomIDRef = useRef(null);
   const zoomPWRef = useRef(null);
+  const topicRef = useRef(null);
+  const createPWRef = useRef(null);
   const client = ZoomMtgEmbedded.createClient();
   const navigate = useNavigate()
   const {user} = UserAuth()
   const location = useLocation();
+  const [modalShow, setModalShow] = React.useState(false);
 
   useEffect(() => {
     if(!user) {
@@ -39,20 +42,60 @@ function VideoCall() {
   var token = ''
   var zakToken = ''
   var redirectLink = 'https://zoom.us/oauth/authorize?response_type=code&client_id=PnIseBlsS8KzyhYDz3o_vQ&redirect_uri=http://localhost:3000/calendar'
-  
+  const [code, setCode] = useState(null)
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    const code = urlParams.get('code');
-    if(code !== ''){
-      console.log(code);
-      if(window.confirm("Create a meeting?")){
-        getToken(code);
-      }
+    setCode(urlParams.get('code'));
+  }, [location]);
+
+  useEffect(() => {
+    if(code !== null){
+      console.log(code)
+      setModalShow(true);
     }
-  }, []);
+  }, [code])
 
-
-
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Set Meeting Topic and Password
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <div className="form-group">
+              <label className="col-form-label">Meeting Topic:</label>
+              <input type="text" ref={topicRef} className="form-control" placeholder='Topic...' id="recipient-name"/>
+            </div>
+            <div className="form-group">
+              <label className="col-form-label">Meeting Password:</label>
+              <input type="text" ref={createPWRef} className="form-control" placeholder='Leave empty to generate random password.' id="message-text"/>
+            </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button variant="danger" onClick={props.onHide}>Cancel</Button>
+        <Button variant="primary" onClick={() => {
+          topic = topicRef.current.value;
+          password = createPWRef.current.value;
+          getToken();
+          setModalShow(false);
+        }}>
+              Set
+        </Button>
+      </Modal.Footer>
+        </Modal>
+    );
+  }
+  
   function getSignature(e) {
     e.preventDefault();
 
@@ -85,15 +128,6 @@ function VideoCall() {
       customize: {
         meetingInfo: ['topic', 'host', 'mn', 'pwd', 'telPwd', 'invite', 'participant', 'dc', 'enctype'],
         toolbar: {
-          buttons: [
-            {
-              text: 'Custom Button',
-              className: 'CustomButton',
-              onClick: () => {
-                console.log('custom button');
-              }
-            }
-          ]
         }
       }
     })
@@ -108,7 +142,7 @@ function VideoCall() {
     })
   }
 
-  function getToken(code) {
+  function getToken() {
     fetch(endPoint + 'create-token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -123,9 +157,6 @@ function VideoCall() {
       toast.error(error);
       console.error(error)
     }).then(()=> {
-      topic = 'This is a test meeting';
-      password = 'abc123';
-
       fetch(endPoint + 'create-meeting', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -190,15 +221,6 @@ function VideoCall() {
       customize: {
         meetingInfo: ['topic', 'host', 'mn', 'pwd', 'telPwd', 'invite', 'participant', 'dc', 'enctype'],
         toolbar: {
-          buttons: [
-            {
-              text: 'Custom Button',
-              className: 'CustomButton',
-              onClick: () => {
-                console.log('custom button');
-              }
-            }
-          ]
         }
       }
     })
@@ -224,6 +246,10 @@ function VideoCall() {
 
   return (
     <div className="App">
+        <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)
+        }/>
       <main>
         {/* For Component View */}
         <div id="meetingSDKElement">
